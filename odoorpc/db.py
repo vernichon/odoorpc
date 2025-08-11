@@ -185,14 +185,25 @@ class DB(object):
         :raise: :class:`odoorpc.error.RPCError` (access denied)
         :raise: `urllib.error.URLError` (connection error)
         """
-        self._odoo.json(
-            '/jsonrpc',
-            {
-                'service': 'db',
-                'method': 'create_database',
-                'args': [password, db, demo, lang, admin_password],
-            },
-        )
+        if int(self._odoo.version.split(".")[0]) < 18:
+
+            self._odoo.json(
+                '/jsonrpc',
+                {
+                    'service': 'db',
+                    'method': 'create_database',
+                    'args': [password, db, demo, lang, admin_password],
+                },
+            )
+        else:
+            self._odoo.json(
+                '/jsonrpc',
+                {
+                    'service': 'db',
+                    'method': 'create_database',
+                    'args': [password, db, demo, lang, admin_password, login, contry_code],
+                },
+            )
 
     def drop(self, password, db):
         """Drop the `db` database. Returns `True` if the database was removed,
