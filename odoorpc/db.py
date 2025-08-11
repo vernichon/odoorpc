@@ -155,7 +155,7 @@ class DB(object):
         )
 
     def create(
-        self, password, db, demo=False, lang='en_US', admin_password='admin'
+        self, password, db, demo=False, lang='en_US', admin_password='admin',login='admin',contry_code=False
     ):
         """Request the server to create a new database named `db`
         which will have `admin_password` as administrator password and
